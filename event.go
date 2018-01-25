@@ -1,19 +1,20 @@
 package raft
 
 const (
-	StateChangeEventType  = "stateChange"
-	LeaderChangeEventType = "leaderChange"
-	TermChangeEventType   = "termChange"
-	CommitEventType   = "commit"
-	AddPeerEventType      = "addPeer"
-	RemovePeerEventType   = "removePeer"
+	StateChangeEventType  = "stateChange"  //状态发生改变
+	LeaderChangeEventType = "leaderChange" //leader发生改变
+	TermChangeEventType   = "termChange"   //任期发生改变
+	CommitEventType       = "commit"       //提交
+	AddPeerEventType      = "addPeer"      //添加节点
+	RemovePeerEventType   = "removePeer"   //删除节点
 
-	HeartbeatIntervalEventType        = "heartbeatInterval"
-	ElectionTimeoutThresholdEventType = "electionTimeoutThreshold"
+	HeartbeatIntervalEventType        = "heartbeatInterval"        //内部心跳
+	ElectionTimeoutThresholdEventType = "electionTimeoutThreshold" //选举超时
 
-	HeartbeatEventType = "heartbeat"
+	HeartbeatEventType = "heartbeat" //心跳
 )
 
+//Event代表发生在raft库里的一个动作，Listener能够通过Server.AddEventListener()函数订阅事件
 // Event represents an action that occurred within the Raft library.
 // Listeners can subscribe to event types by using the Server.AddEventListener() function.
 type Event interface {
@@ -23,14 +24,16 @@ type Event interface {
 	PrevValue() interface{}
 }
 
+//event是Event接口的具体实现
 // event is the concrete implementation of the Event interface.
 type event struct {
-	typ       string
+	typ       string //事件类型
 	source    interface{}
 	value     interface{}
 	prevValue interface{}
 }
 
+//创建事件
 // newEvent creates a new event.
 func newEvent(typ string, value interface{}, prevValue interface{}) *event {
 	return &event{

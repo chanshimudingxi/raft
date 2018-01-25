@@ -41,6 +41,7 @@ func writeFileSynced(filename string, data []byte, perm os.FileMode) error {
 	return f.Close()
 }
 
+//需要等待随机的选举超时时间后，返回的channel里才会有信息
 // Waits for a random time between two durations and sends the current time on
 // the returned channel.
 func afterBetween(min time.Duration, max time.Duration) <-chan time.Time {

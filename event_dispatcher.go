@@ -5,12 +5,13 @@ import (
 	"sync"
 )
 
+//事件派发器职责是管理命名事件的监听者，同时发送事件通知给监听者
 // eventDispatcher is responsible for managing listeners for named events
 // and dispatching event notifications to those listeners.
 type eventDispatcher struct {
-	sync.RWMutex
-	source    interface{}
-	listeners map[string]eventListeners
+	sync.RWMutex //监听者监听的事件是一个队列，用于数据保护。用读写锁，难道读的次数远高于写的次数？
+	source       interface{}
+	listeners    map[string]eventListeners
 }
 
 // EventListener is a function that can receive event notifications.

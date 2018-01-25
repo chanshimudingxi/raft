@@ -1,13 +1,14 @@
 package raft
 
+//上下文代表server的当前状态。在这里的上下文还有更强的语义，表明只能在同一个上下文里进行server状态的改变
 // Context represents the current state of the server. It is passed into
 // a command when the command is being applied since the server methods
 // are locked.
 type Context interface {
 	Server() Server
-	CurrentTerm() uint64
-	CurrentIndex() uint64
-	CommitIndex() uint64
+	CurrentTerm() uint64  //当前任期号
+	CurrentIndex() uint64 //当前索引号
+	CommitIndex() uint64  //commit的索引号
 }
 
 // context is the concrete implementation of Context.

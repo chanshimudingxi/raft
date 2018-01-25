@@ -19,15 +19,15 @@ import (
 
 // A log is a collection of log entries that are persisted to durable storage.
 type Log struct {
-	ApplyFunc   func(*LogEntry, Command) (interface{}, error)
-	file        *os.File
-	path        string
-	entries     []*LogEntry
-	commitIndex uint64
+	ApplyFunc   func(*LogEntry, Command) (interface{}, error) //日志记录持久化函数
+	file        *os.File                                      //文件
+	path        string                                        //路径
+	entries     []*LogEntry                                   //日志记录
+	commitIndex uint64                                        //已提交日志记录的索引号
 	mutex       sync.RWMutex
 	startIndex  uint64 // the index before the first entry in the Log entries
-	startTerm   uint64
-	initialized bool
+	startTerm   uint64 //开始任期号
+	initialized bool   //初始化状态
 }
 
 // The results of the applying a log entry.

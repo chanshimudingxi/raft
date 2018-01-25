@@ -14,26 +14,31 @@ func init() {
 	commandTypes = map[string]Command{}
 }
 
+//command表示一个需要在复制状态机上执行的动作
 // Command represents an action to be taken on the replicated state machine.
 type Command interface {
 	CommandName() string
 }
 
+//CommandApply代表应用一个command到server
 // CommandApply represents the interface to apply a command to the server.
 type CommandApply interface {
 	Apply(Context) (interface{}, error)
 }
 
+//deprecatedCommandApply代表老接口应用一个command到server
 // deprecatedCommandApply represents the old interface to apply a command to the server.
 type deprecatedCommandApply interface {
 	Apply(Server) (interface{}, error)
 }
 
+//Command编解码器
 type CommandEncoder interface {
 	Encode(w io.Writer) error
 	Decode(r io.Reader) error
 }
 
+//根据name创建一个command实例
 // Creates a new instance of a command by name.
 func newCommand(name string, data []byte) (Command, error) {
 	// Find the registered command.
