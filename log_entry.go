@@ -6,7 +6,7 @@ import (
 	"fmt"
 	"io"
 
-	"code.google.com/p/gogoprotobuf/proto"
+	"github.com/alberts/gogoprotobuf/proto"
 	"github.com/chanshimudingxi/raft/protobuf"
 )
 
